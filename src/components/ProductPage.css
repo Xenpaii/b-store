@@ -1,0 +1,182 @@
+/* src/components/ProductPage.css */
+
+.product-page {
+    display: flex;
+    align-items: center; /* Center vertically */
+    padding: 20px; /* Add some padding for spacing */
+    background-color: #f9f9f9; /* Light background color */
+    min-height: 100vh; /* Ensure the page takes at least full height */
+}
+
+.product-page-content {
+    display: grid; /* Use grid layout */
+    grid-template-columns: 1fr 1fr; /* Two equal-width columns */
+    width: 100%; /* Ensure the content takes the full width */
+    max-width: 1200px; /* Set a max width for larger screens */
+}
+
+.image-gallery {
+    display: flex;
+    flex-direction: row; /* Arrange gallery and main image in a row */
+    align-items: flex-start; /* Align items to the top */
+}
+
+.thumbnail-list {
+    display: flex;
+    flex-direction: column; /* Stack thumbnails vertically */
+    gap: 10px; /* Space between thumbnails */
+    margin-right: 20px; /* Space between thumbnails and main image */
+    overflow-y: auto; /* Allow vertical scrolling for thumbnails */
+    max-height: 500px; /* Set a max height for the thumbnail list */
+    width: 100px; /* Set a fixed width for the thumbnail list */
+}
+
+.thumbnail {
+    width: 80px; /* Set a fixed width for thumbnails */
+    height: auto; /* Maintain aspect ratio */
+    cursor: pointer;
+    border: 2px solid transparent; /* Default border */
+    transition: border-color 0.3s; /* Smooth transition for border color */
+}
+
+.thumbnail:hover {
+    border-color: #888; /* Change border color on hover */
+}
+
+.thumbnail.selected {
+    border-color: #5ece7b; /* Highlight color for the selected thumbnail */
+}
+
+.carousel {
+    display: flex;
+    flex-direction: column; /* Stack arrows and main image vertically */
+    align-items: center; /* Center the main image */
+    position: relative; /* Positioning for the arrows */
+}
+
+.arrow {
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+    border: none; /* No border */
+    cursor: pointer; /* Pointer cursor on hover */
+    padding: 10px; /* Padding for the arrow buttons */
+    font-size: 24px; /* Increase font size for arrows */
+    border-radius: 50%; /* Round shape for the buttons */
+    position: absolute; /* Position arrows on top of the main image */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust for vertical centering */
+    z-index: 1; /* Ensure arrows are above the image */
+}
+
+.arrow.left {
+    left: 10px; /* Position left arrow */
+}
+
+.arrow.right {
+    right: 10px; /* Position right arrow */
+}
+
+.main-image {
+    margin-bottom: 20px; /* Space between preview and thumbnails */
+}
+
+.main-image img {
+    width: 100%; /* Adjust as necessary */
+    max-height: 500px; /* Set max height for the main image */
+    object-fit: contain; /* Maintain aspect ratio */
+    border: 2px solid #ccc; /* Optional: Add a border to the preview */
+}
+
+.product-details {
+    font-family: 'Montserrat', sans-serif; /* Use Montserrat font */
+    text-align: left; /* Align text to the left */
+    margin-top: 0; /* Ensure no top margin */
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack children vertically */
+    justify-content: center; /* Center content vertically */
+    margin-left: 40px; /* Add space between image gallery and product details */
+}
+
+.product-details h1 {
+    font-weight: bold; /* Make the product name bold */
+    margin: 10px 0; /* Space above and below the name */
+}
+
+.product-details p {
+    font-weight: bold; /* Make the price bold */
+    font-size: 1.2em; /* Increase font size for emphasis */
+    margin: 10px 0; /* Space above and below the price */
+}
+
+.attribute-selector {
+    margin-top: 10px; /* Space above the attribute selector */
+    text-align: left; /* Align attribute choices to the left */
+}
+
+.attribute-selector label {
+    display: block; /* Make label a block element */
+    margin-bottom: 5px; /* Space below the label */
+    font-weight: bold; /* Bold label text */
+    font-size: 1em; /* Make label size equal to price */
+}
+
+.attribute-tiles {
+    display: flex;
+    gap: 10px; /* Space between attribute buttons */
+}
+
+.attribute-button {
+    border: 2px solid #ddd; /* Default border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 5px; /* Padding for button */
+    cursor: pointer; /* Pointer cursor on hover */
+    background-color: transparent; /* Default background */
+    transition: border-color 0.3s, background-color 0.3s; /* Smooth transition */
+    display: inline-flex; /* Use inline-flex for text buttons */
+    align-items: center; /* Center content vertically */
+    justify-content: center; /* Center content horizontally */
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+
+.attribute-button.selected {
+    border-color: #5ECE7B; /* Change border color for selected button */
+    background-color: #e0f7e0; /* Light background for selected button */
+}
+
+.color-tile {
+    width: 28px; /* Fixed width for color tiles */
+    height: 28px; /* Fixed height for color tiles */
+    border-radius: 5px; /* Rounded corners for color tiles */
+    display: inline-flex; /* Ensure it behaves like a block element */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.product-description {
+    margin-top: 20px; /* Add some space above the description */
+    text-align: left; /* Align the description to the left */
+}
+
+.product-description p {
+    margin-bottom: 10px; /* Add some space between paragraphs */
+}
+
+.add-to-cart-button {
+    background-color: #5ece7b; /* Green background for the button */
+    color: white; /* White text color */
+    border: none; /* Remove border */
+    padding: 10px 20px; /* Padding for the button */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+.add-to-cart-button:hover {
+    background-color: #4cbf6e; /* Darker green on hover */
+}
+
+.add-to-cart-button:disabled {
+    background-color: #ccc; /* Grey background for disabled state */
+    color: #666; /* Grey text for disabled state */
+    cursor: not-allowed; /* Change cursor to indicate it's not clickable */
+}
