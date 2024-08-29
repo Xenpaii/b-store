@@ -1,182 +1,182 @@
-/* src/components/ProductPage.css */
+
 
 .product-page {
     display: flex;
-    align-items: center; /* Center vertically */
-    padding: 20px; /* Add some padding for spacing */
-    background-color: #f9f9f9; /* Light background color */
-    min-height: 100vh; /* Ensure the page takes at least full height */
+    align-items: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    min-height: 100vh;
 }
 
 .product-page-content {
-    display: grid; /* Use grid layout */
-    grid-template-columns: 1fr 1fr; /* Two equal-width columns */
-    width: 100%; /* Ensure the content takes the full width */
-    max-width: 1200px; /* Set a max width for larger screens */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    max-width: 1200px;
 }
 
 .image-gallery {
     display: flex;
-    flex-direction: row; /* Arrange gallery and main image in a row */
-    align-items: flex-start; /* Align items to the top */
+    flex-direction: row;
+    align-items: flex-start;
 }
 
 .thumbnail-list {
     display: flex;
-    flex-direction: column; /* Stack thumbnails vertically */
-    gap: 10px; /* Space between thumbnails */
-    margin-right: 20px; /* Space between thumbnails and main image */
-    overflow-y: auto; /* Allow vertical scrolling for thumbnails */
-    max-height: 500px; /* Set a max height for the thumbnail list */
-    width: 100px; /* Set a fixed width for the thumbnail list */
+    flex-direction: column;
+    gap: 10px;
+    margin-right: 20px;
+    overflow-y: auto;
+    max-height: 500px;
+    width: 100px;
 }
 
 .thumbnail {
-    width: 80px; /* Set a fixed width for thumbnails */
-    height: auto; /* Maintain aspect ratio */
+    width: 80px;
+    height: auto;
     cursor: pointer;
-    border: 2px solid transparent; /* Default border */
-    transition: border-color 0.3s; /* Smooth transition for border color */
+    border: 2px solid transparent;
+    transition: border-color 0.3s;
 }
 
 .thumbnail:hover {
-    border-color: #888; /* Change border color on hover */
+    border-color: #888;
 }
 
 .thumbnail.selected {
-    border-color: #5ece7b; /* Highlight color for the selected thumbnail */
+    border-color: #5ece7b;
 }
 
 .carousel {
     display: flex;
-    flex-direction: column; /* Stack arrows and main image vertically */
-    align-items: center; /* Center the main image */
-    position: relative; /* Positioning for the arrows */
+    flex-direction: column;
+    align-items: center;
+    position: relative;
 }
 
 .arrow {
-    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
-    border: none; /* No border */
-    cursor: pointer; /* Pointer cursor on hover */
-    padding: 10px; /* Padding for the arrow buttons */
-    font-size: 24px; /* Increase font size for arrows */
-    border-radius: 50%; /* Round shape for the buttons */
-    position: absolute; /* Position arrows on top of the main image */
-    top: 50%; /* Center vertically */
-    transform: translateY(-50%); /* Adjust for vertical centering */
-    z-index: 1; /* Ensure arrows are above the image */
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 24px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
 }
 
 .arrow.left {
-    left: 10px; /* Position left arrow */
+    left: 10px;
 }
 
 .arrow.right {
-    right: 10px; /* Position right arrow */
+    right: 10px;
 }
 
 .main-image {
-    margin-bottom: 20px; /* Space between preview and thumbnails */
+    margin-bottom: 20px;
 }
 
 .main-image img {
-    width: 100%; /* Adjust as necessary */
-    max-height: 500px; /* Set max height for the main image */
-    object-fit: contain; /* Maintain aspect ratio */
-    border: 2px solid #ccc; /* Optional: Add a border to the preview */
+    width: 100%;
+    max-height: 500px;
+    object-fit: contain;
+    border: 2px solid #ccc;
 }
 
 .product-details {
-    font-family: 'Montserrat', sans-serif; /* Use Montserrat font */
-    text-align: left; /* Align text to the left */
-    margin-top: 0; /* Ensure no top margin */
-    display: flex; /* Use flexbox for layout */
-    flex-direction: column; /* Stack children vertically */
-    justify-content: center; /* Center content vertically */
-    margin-left: 40px; /* Add space between image gallery and product details */
+    font-family: 'Montserrat', sans-serif;
+    text-align: left;
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 40px;
 }
 
 .product-details h1 {
-    font-weight: bold; /* Make the product name bold */
-    margin: 10px 0; /* Space above and below the name */
+    font-weight: bold;
+    margin: 10px 0;
 }
 
 .product-details p {
-    font-weight: bold; /* Make the price bold */
-    font-size: 1.2em; /* Increase font size for emphasis */
-    margin: 10px 0; /* Space above and below the price */
+    font-weight: bold;
+    font-size: 1.2em;
+    margin: 10px 0;
 }
 
 .attribute-selector {
-    margin-top: 10px; /* Space above the attribute selector */
-    text-align: left; /* Align attribute choices to the left */
+    margin-top: 10px;
+    text-align: left;
 }
 
 .attribute-selector label {
-    display: block; /* Make label a block element */
-    margin-bottom: 5px; /* Space below the label */
-    font-weight: bold; /* Bold label text */
-    font-size: 1em; /* Make label size equal to price */
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 1em;
 }
 
 .attribute-tiles {
     display: flex;
-    gap: 10px; /* Space between attribute buttons */
+    gap: 10px;
 }
 
 .attribute-button {
-    border: 2px solid #ddd; /* Default border */
-    border-radius: 5px; /* Rounded corners */
-    padding: 5px; /* Padding for button */
-    cursor: pointer; /* Pointer cursor on hover */
-    background-color: transparent; /* Default background */
-    transition: border-color 0.3s, background-color 0.3s; /* Smooth transition */
-    display: inline-flex; /* Use inline-flex for text buttons */
-    align-items: center; /* Center content vertically */
-    justify-content: center; /* Center content horizontally */
-    white-space: nowrap; /* Prevent text from wrapping */
+    border: 3px solid #ddd;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+    background-color: transparent;
+    transition: border-color 0.3s, background-color 0.3s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
 }
 
 .attribute-button.selected {
-    border-color: #5ECE7B; /* Change border color for selected button */
-    background-color: #e0f7e0; /* Light background for selected button */
+    border-color: #5ECE7B;
+    background-color: #e0f7e0;
 }
 
 .color-tile {
-    width: 28px; /* Fixed width for color tiles */
-    height: 28px; /* Fixed height for color tiles */
-    border-radius: 5px; /* Rounded corners for color tiles */
-    display: inline-flex; /* Ensure it behaves like a block element */
-    justify-content: center; /* Center content horizontally */
-    align-items: center; /* Center content vertically */
-    cursor: pointer; /* Pointer cursor on hover */
+    width: 28px;
+    height: 28px;
+    border-radius: 5px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
 
 .product-description {
-    margin-top: 20px; /* Add some space above the description */
-    text-align: left; /* Align the description to the left */
+    margin-top: 20px;
+    text-align: left;
 }
 
 .product-description p {
-    margin-bottom: 10px; /* Add some space between paragraphs */
+    margin-bottom: 10px;
 }
 
 .add-to-cart-button {
-    background-color: #5ece7b; /* Green background for the button */
-    color: white; /* White text color */
-    border: none; /* Remove border */
-    padding: 10px 20px; /* Padding for the button */
-    border-radius: 5px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s; /* Smooth transition for background color */
+    background-color: #5ece7b;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .add-to-cart-button:hover {
-    background-color: #4cbf6e; /* Darker green on hover */
+    background-color: #4cbf6e;
 }
 
 .add-to-cart-button:disabled {
-    background-color: #ccc; /* Grey background for disabled state */
-    color: #666; /* Grey text for disabled state */
-    cursor: not-allowed; /* Change cursor to indicate it's not clickable */
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
 }

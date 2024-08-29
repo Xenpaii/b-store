@@ -1,7 +1,7 @@
-// src/components/ProductPage.js
+
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import './ProductPage.css'; // Create this CSS file for styling
+import './ProductPage.css'; 
 
 const ProductPage = ({ addToCart }) => {
     const { productId } = useParams();
@@ -9,21 +9,11 @@ const ProductPage = ({ addToCart }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [selectedImage, setSelectedImage] = useState('');
-    const [selectedVariants, setSelectedVariants] = useState({}); // To store selected attributes
+    const [selectedVariants, setSelectedVariants] = useState({}); 
 
     useEffect(() => {
         fetchProducts();
     }, []);
-
-    useEffect(() => {
-        if (product) {
-            const initialSelectedVariants = product.attributes.reduce((acc, attribute) => {
-                acc[attribute.id] = attribute.items[0].value; // Set the first item as selected
-                return acc;
-            }, {});
-            setSelectedVariants(initialSelectedVariants);
-        }
-    }, [product]);
 
     const fetchProducts = async () => {
         const query = `
@@ -70,7 +60,7 @@ const ProductPage = ({ addToCart }) => {
             const foundProduct = data.data.products.find(p => p.id === productId);
             if (foundProduct) {
                 setProduct(foundProduct);
-                setSelectedImage(foundProduct.gallery[0]); // Set the first image as the default
+                setSelectedImage(foundProduct.gallery[0]); 
             } else {
                 setError('Product not found');
             }
@@ -90,9 +80,9 @@ const ProductPage = ({ addToCart }) => {
             console.log('Adding to cart:', {
                 id: product.id,
                 name: product.name,
-                selectedVariants: selectedVariants // Log the selected variants
+                selectedVariants: selectedVariants 
             });
-            addToCart(product, selectedVariants); // Pass selected variants to addToCart
+            addToCart(product, selectedVariants); 
         }
     };
 
@@ -115,6 +105,10 @@ const ProductPage = ({ addToCart }) => {
         }));
     };
 
+    const allAttributesSelected = () => {
+        return product.attributes.every(attribute => selectedVariants[attribute.id]);
+    };
+
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
     if (!product) return <p>Product not found.</p>;
@@ -122,14 +116,14 @@ const ProductPage = ({ addToCart }) => {
     return (
         <div className="product-page">
             <div className="product-page-content">
-                <div className="image-gallery">
+                <div className="image-gallery" data-testid="product-gallery">
                     <div className="thumbnail-list">
                         {product.gallery.map((image, index) => (
                             <img
                                 key={index}
                                 src={image}
                                 alt={product.name}
-                                className={`thumbnail ${selectedImage === image ? 'selected' : ''}`} // Highlight selected image
+                                className={`thumbnail ${selectedImage === image ? 'selected' : ''}`} 
                                 onClick={() => handleImageClick(image)}
                             />
                         ))}
@@ -147,33 +141,34 @@ const ProductPage = ({ addToCart }) => {
                     <p>Price: ${parseFloat(product.price).toFixed(2)}</p>
                     {product.attributes && product.attributes.map(attribute => (
                         <div key={attribute.id} className="attribute-selector">
-                            <label>{attribute.name}:</label>
+                            <label data-testid={`product-attribute-${attribute.name.replace(/\s+/g, '-').toLowerCase()}`}>{attribute.name}:</label>
                             <div className="attribute-tiles">
                                 {attribute.items.map(item => {
-                                    const isColorAttribute = attribute.name === 'Color';
                                     return (
                                         <button
                                             key={item.id}
                                             className={`attribute-button ${selectedVariants[attribute.id] === item.value ? 'selected' : ''}`}
                                             onClick={() => handleVariantChange(attribute.id, item.value)}
-                                            style={isColorAttribute ? { backgroundColor: item.value, width: '30px', height: '30px' } : {}}
+                                            style={attribute.name === 'Color' ? { backgroundColor: item.value, width: '30px', height: '30px' } : {}}
+                                            data-testid={`product-attribute-${attribute.name.replace(/\s+/g, '-').toLowerCase()}-${item.value.replace(/\s+/g, '-')}`} 
                                         >
-                                            {!isColorAttribute && item.displayValue}
+                                            {attribute.name !== 'Color' && item.displayValue}
                                         </button>
                                     );
                                 })}
                             </div>
                         </div>
                     ))}
-                    <div style={{ margin: '20px 0' }} /> {/* Add margin between attributes and button */}
+                    <div style={{ margin: '20px 0' }} /> {}
                     <button 
-                        className="add-to-cart-button" 
+                        className={`add-to-cart-button ${!allAttributesSelected() ? 'disabled' : ''}`}
                         onClick={handleAddToCart} 
-                        disabled={!product.in_stock} // Disable the button if the product is out of stock
+                        disabled={!allAttributesSelected()} 
+                        data-testid="add-to-cart" 
                     >
                         Add to Cart
                     </button>
-                    <div className="product-description">
+                    <div className="product-description" data-testid="product-description"> {}
                         {product.description.split('\n').map((paragraph, index) => (
                             <p key={index}>{paragraph}</p>
                         ))}

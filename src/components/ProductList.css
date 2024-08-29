@@ -1,90 +1,90 @@
-/* src/components/ProductList.css */
+
 
 .product-list {
-  padding: 20px; /* Add some padding around the product list */
+  padding: 20px;
 }
 
 .product-cards {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  transition: opacity 0.3s ease; /* Smooth transition for opacity */
+  transition: opacity 0.3s ease;
 }
 
 .fade-out {
-  opacity: 0; /* Fade out effect */
-  pointer-events: none; /* Prevent interaction during fade-out */
+  opacity: 0;
+  pointer-events: none;
 }
 
 .product-card {
   background-color: #f8f9fa;
-  border: 1px solid #ddd; /* Light gray border */
+  border: 1px solid #ddd;
   border-radius: 5px;
   width: 200px;
   margin: 10px;
   padding: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   text-align: center;
-  position: relative; /* Allow positioning of child elements */
-  overflow: hidden; /* Ensure child elements do not overflow */
-  display: flex; /* Use flexbox for layout */
-  flex-direction: column; /* Stack children vertically */
-  justify-content: flex-start; /* Align items at the top */
-  height: 260px; /* Increase the height of the product cards */
-  padding-bottom: 60px; /* Add padding equal to the button height */
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 260px;
+  padding-bottom: 60px;
 }
 
 .image-container {
-  flex: 1; /* Allow the image container to grow */
-  display: flex; /* Use flexbox for centering */
-  align-items: center; /* Center image vertically */
-  justify-content: center; /* Center image horizontally */
-  margin: 0px; /* Add margin below the image */
-  position: relative; /* Position relative for overlay */
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px;
+  position: relative;
 }
 
 .product-card img {
-  width: auto; /* Scale image to fit */
-  max-height: 150px; /* Maintain aspect ratio */
-  object-fit: contain; /* Ensure the image fits within the container without distortion */
-  border: 1px solid #ddd; /* Add a light gray border */
-  border-radius: 5px; /* Rounded corners for the border */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
-  padding: 10px; /* Add padding around the image */
-  background-color: white; /* Set background color to white */
+  width: auto;
+  max-height: 150px;
+  object-fit: contain;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  background-color: white;
 }
 
 .product-card img.dimmed {
-  opacity: 0.5; /* Dim the image for out-of-stock items */
+  opacity: 0.5;
 }
 
 .out-of-stock-overlay {
-  position: absolute; /* Position overlay on top of the image */
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-  color: white; /* Text color */
-  display: flex; /* Use flexbox for centering */
-  align-items: center; /* Center text vertically */
-  justify-content: center; /* Center text horizontally */
-  font-size: 16px; /* Font size for the overlay text */
-  border-radius: 5px; /* Match the border radius of the image */
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  border-radius: 5px;
 }
 
-/* Other existing styles remain unchanged */
+
 .product-info {
   padding: 10px;
-  display: flex; /* Use flexbox for layout */
-  flex-direction: column; /* Stack children vertically */
-  justify-content: center; /* Center content vertically */
-  flex-grow: 1; /* Allow product info to grow */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
 }
 
 .product-info h3 {
   margin: 0;
-  font-size: 18px; /* Set font size for product name */
+  font-size: 18px;
 }
 
 .product-info p {
@@ -92,63 +92,63 @@
   margin: 5px 0 0;
   font-size: 14px;
   color: #333;
-  font-family: 'Montserrat', sans-serif; /* Use Montserrat font for prices */
+  font-family: 'Montserrat', sans-serif;
 }
 
-/* Divider Line */
+
 .divider {
-  height: 1px; /* Height of the line */
-  background-color: lightgray; /* Color of the line */
-  margin: 10px 0; /* Margin above and below the line */
+  height: 1px;
+  background-color: lightgray;
+  margin: 10px 0;
 }
 
 .quick-shop-button {
-  position: absolute; /* Position it absolutely within the product card */
-  bottom: 10px; /* Position it above the bottom border */
-  right: 10px; /* Align it to the right */
-  width: 50px; /* Increase width for a bigger circle */
-  height: 50px; /* Increase height for a bigger circle */
-  border-radius: 50%; /* Make it circular */
-  background-color: #5ECE7B; /* Green background for the button */
-  color: white; /* White text color */
-  border: 2px solid #ffffff; /* White border for the button */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
-  cursor: pointer; /* Pointer cursor on hover */
-  transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effect */
-  opacity: 0; /* Start hidden */
-  transform: translateY(10px); /* Slightly move down */
-  display: flex; /* Use flexbox for centering text */
-  align-items: center; /* Center text vertically */
-  justify-content: center; /* Center text horizontally */
-  font-size: 20px; /* Increase font size for the emoji */
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #5ECE7B;
+  color: white;
+  border: 2px solid #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 0;
+  transform: translateY(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
 }
 
 .product-card:hover .quick-shop-button {
-  opacity: 1; /* Fade in */
-  transform: translateY(0); /* Move to original position */
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .quick-shop-button span {
-  transition: opacity 0.3s ease; /* Smooth transition for text */
+  transition: opacity 0.3s ease;
 }
 
-/* Add a class for when the button is visible */
+
 .quick-shop-button.visible {
-  opacity: 1; /* Fade in */
-  transform: translateY(0); /* Move to original position */
+  opacity: 1;
+  transform: translateY(0);
 }
 
-/* Bounce Animation for Button */
+
 .bounce {
-  animation: bounce 0.5s ease; /* Apply bounce animation */
+  animation: bounce 0.5s ease;
 }
 
 @keyframes bounce {
   0%, 100% {
-      transform: scale(1); /* Start and end at normal size */
+      transform: scale(1);
   }
   50% {
-      transform: scale(1.2); /* Scale up to 1.2x */
+      transform: scale(1.2);
   }
 }
 
@@ -168,7 +168,7 @@
   animation: flash 1s ease-in-out;
 }
 
-/* src/components/ProductList.css */
+
 .product-list {
 transition: opacity 0.5s ease-in-out;
 }
@@ -181,7 +181,7 @@ opacity: 1;
 opacity: 0;
 }
 
-/* Updated styles for the product page */
+
 .product-page {
   display: flex;
   flex-direction: column;
@@ -196,50 +196,50 @@ opacity: 0;
 
 .thumbnail-list {
   display: flex;
-  gap: 10px; /* Space between thumbnails */
-  margin-bottom: 10px; /* Space below thumbnail list */
+  gap: 10px;
+  margin-bottom: 10px;
 }
 
 .thumbnail {
-  width: 80px; /* Set a fixed width for thumbnails */
-  height: auto; /* Maintain aspect ratio */
+  width: 80px;
+  height: auto;
   cursor: pointer;
-  border: 2px solid transparent; /* Default border */
-  transition: border-color 0.3s; /* Smooth transition for border color */
+  border: 2px solid transparent;
+  transition: border-color 0.3s;
 }
 
 .thumbnail:hover {
-  border-color: #888; /* Change border color on hover */
+  border-color: #888;
 }
 
 .thumbnail.selected {
-  border-color: #5ece7b; /* Highlight color for the selected thumbnail */
+  border-color: #5ece7b;
 }
 
 .main-image {
-  margin-bottom: 20px; /* Space between preview and thumbnails */
+  margin-bottom: 20px;
 }
 
 .main-image img {
-  width: 100%; /* Adjust as necessary */
-  max-width: 500px; /* Limit the max width */
-  border: 2px solid #ccc; /* Optional: Add a border to the preview */
+  width: 100%;
+  max-width: 500px;
+  border: 2px solid #ccc;
 }
 
 .product-details {
-  text-align: center; /* Center text in product details */
+  text-align: center;
 }
 
 .add-to-cart-button {
-  background-color: #5ece7b; /* Green background for the button */
-  color: white; /* White text color */
-  border: none; /* Remove border */
-  padding: 10px 20px; /* Padding for the button */
-  border-radius: 5px; /* Rounded corners */
-  cursor: pointer; /* Pointer cursor on hover */
-  transition: background-color 0.3s; /* Smooth transition for background color */
+  background-color: #5ece7b;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .add-to-cart-button:hover {
-  background-color: #4cbf6e; /* Darker green on hover */
+  background-color: #4cbf6e;
 }

@@ -1,88 +1,91 @@
-/* src/components/CategoryBar.css */
+
 
 .navbar {
   display: flex;
   align-items: center;
-  background-color: #f8f9fa; /* Light background color */
-  color: #333; /* Dark text color for contrast */
-  padding: 0 10px; /* Add some padding */
+  background-color: #f8f9fa;
+  color: #333;
+  padding: 0 10px;
   height: 70px;
   width: 100%;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 1000;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Lighter shadow for a softer look */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-content {
   display: flex;
-  justify-content: space-between; /* Space between category bar and cart button */
-  align-items: center; /* Center items vertically */
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
-  position: relative; /* Position relative for absolute positioning of logo */
+  position: relative;
 }
 
 .category-bar {
-  display: flex; /* Align items in the category bar */
-  align-items: center; /* Center items vertically */
-  flex: 1; /* Allow category bar to take available space */
+  display: flex;
+  align-items: center;
+  flex: 1;
 }
 
 .category-link {
-  background: none; /* No background */
-  border: none; /* No border */
-  color: #333; /* Dark text color for category links */
-  cursor: pointer; /* Pointer cursor */
-  margin-right: 15px; /* Space between buttons */
-  padding: 10px; /* Padding for buttons */
-  transition: color 0.3s; /* Smooth color transition */
+  background: none;
+  border: none;
+  color: #333;
+  cursor: pointer;
+  margin-right: 15px;
+  padding: 10px;
+  transition: color 0.3s;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
 }
 
 .category-link:hover {
-  color: #5ECE7B; /* Change color on hover */
+  color: #5ECE7B;
 }
 
 .category-link.active {
-  font-weight: bold; /* Highlight active category */
+  font-weight: bold;
 }
 
 .navbar-logo {
-  height: 50px; /* Set the height of the logo */
-  position: absolute; /* Position it absolutely */
-  left: 49.3%; /* Center it horizontally */
-  transform: translateX(-50%); /* Adjust for centering */
+  height: 50px;
+  position: absolute;
+  left: 49.3%;
+  transform: translateX(-50%);
 }
 
 .cart-button {
-  background-color: transparent; /* Remove green background */
-  color: #333; /* Dark text color */
+  background-color: transparent;
+  color: #333;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
-  position: relative; /* Position relative for badge placement */
-  width: 5%; /* Set width to 5% */
+  position: relative;
+  width: 5%;
 }
 
 .cart-button .cart-icon {
-  font-size: 30px; /* Increase size of the cart emoji */
+  font-size: 30px;
 }
 
 .cart-badge {
   position: absolute;
-  top: -10px; /* Position the badge above the emoji */
-  right: 25px; /* Position the badge to the right of the emoji */
-  background-color: #ff0000; /* Red background for badge */
-  color: white; /* White text color */
-  border-radius: 50%; /* Circular badge */
-  padding: 2px; /* Smaller padding for the badge */
-  font-size: 12px; /* Smaller font size for the badge */
-  font-weight: normal; /* Normal weight for text */
-  min-width: 16px; /* Minimum width for the badge */
-  height: 16px; /* Fixed height for the badge */
-  display: flex; /* Use flexbox to center the text */
-  align-items: center; /* Center vertically */
-  justify-content: center; /* Center horizontally */
+  top: -10px;
+  right: 25px;
+  background-color: #ff0000;
+  color: white;
+  border-radius: 50%;
+  padding: 2px;
+  font-size: 12px;
+  font-weight: normal;
+  min-width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

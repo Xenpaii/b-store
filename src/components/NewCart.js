@@ -1,10 +1,11 @@
 import React from 'react';
-import './NewCart.css'; // Ensure this CSS file exists
+import './NewCart.css'; 
 
 class NewCart extends React.Component {
     state = {
         showOverlay: false,
         overlayOpacity: 0,
+        isPlacingOrder: false,
     };
 
     handleDecreaseQuantity = (item) => {
@@ -34,24 +35,23 @@ class NewCart extends React.Component {
 
     placeOrder = async () => {
         const { cartItems, total } = this.props;
-    
-        if (cartItems.length === 0) return; // Prevent placing an order if the cart is empty
-    
-        // Prepare items data including attributes
+
+        if (cartItems.length === 0) return; 
+
+        this.setState({ isPlacingOrder: true }); 
+
+        
         const items = cartItems.map(item => {
-            const itemName = item.name; // Assuming item has a name property
-            const itemAttributes = item.selectedVariants; // Assuming selectedVariants contains the attributes
-    
-            // Create a structured object for the order
-            const itemEntry = { name: itemName };
-    
-            for (const [key, value] of Object.entries(itemAttributes)) {
-                itemEntry[key] = value; // Add attribute to the item entry
-            }
-    
-            return JSON.stringify(itemEntry); // Convert each item entry to JSON string
+            const itemName = item.name; 
+            const itemAttributes = item.selectedVariants; 
+            const itemQuantity = item.quantity; 
+
+            
+            const itemEntry = { name: itemName, attributes: itemAttributes, quantity: itemQuantity }; 
+
+            return JSON.stringify(itemEntry); 
         });
-    
+
         const query = `
             mutation PlaceOrder($items: [String!]!, $total: Float!) {
                 placeOrder(items: $items, total: $total) {
@@ -62,12 +62,12 @@ class NewCart extends React.Component {
                 }
             }
         `;
-    
+
         const variables = {
             items: items,
             total: total,
         };
-    
+
         try {
             const response = await fetch(process.env.REACT_APP_API_URL, {
                 method: 'POST',
@@ -76,36 +76,38 @@ class NewCart extends React.Component {
                 },
                 body: JSON.stringify({ query, variables }),
             });
-    
-            // Log the raw response text for debugging
-            const responseText = await response.text(); // Get the raw response text
-            console.log('Raw response:', responseText); // Log the raw response
-    
-            // Check if the response is OK (status code 200-299)
+
+            
+            const responseText = await response.text(); 
+            console.log('Raw response:', responseText); 
+
+            
             if (!response.ok) {
                 throw new Error(`Network response was not ok: ${response.status} ${response.statusText}`);
             }
-    
-            // Parse the response text as JSON
+
+            
             const data = JSON.parse(responseText);
-    
-            // Check for GraphQL errors in the response
+
+            
             if (data.errors) {
                 throw new Error('GraphQL error: ' + JSON.stringify(data.errors));
             }
-    
-            // Clear the cart after placing the order
+
+            
             this.props.cartItems.forEach(item => this.props.removeFromCart(item));
-            alert('Order placed successfully!'); // Notify the user
+            alert('Order placed successfully!'); 
         } catch (error) {
             console.error('Error placing order:', error);
-            alert('Failed to place order: ' + error.message); // Show detailed error message
+            alert('Failed to place order: ' + error.message); 
+        } finally {
+            this.setState({ isPlacingOrder: false }); 
         }
     };
 
     render() {
         const { cartItems, total, isOpen, closeCart } = this.props;
-        const { showOverlay, overlayOpacity } = this.state;
+        const { showOverlay, overlayOpacity, isPlacingOrder } = this.state;
 
         return (
             <>
@@ -114,6 +116,7 @@ class NewCart extends React.Component {
                         className="overlay" 
                         style={{ opacity: overlayOpacity }} 
                         onClick={closeCart} 
+                        data-testid="cart-overlay" 
                     />
                 )}
                 <div className={`new-cart ${isOpen ? 'open' : ''}`}>
@@ -124,7 +127,7 @@ class NewCart extends React.Component {
                             <p>No items in the cart</p>
                         ) : (
                             cartItems.map(item => (
-                                <div key={item.id} className="cart-item">
+                                <div key={item.id} className="cart-item" data-testid={`cart-item-${item.name.replace(/\s+/g, '-').toLowerCase()}`}>
                                     <img src={item.gallery[0]} alt={item.name} className="cart-item-image" />
                                     <div className="item-details">
                                         <p className="item-name">{item.name}</p>
@@ -133,23 +136,34 @@ class NewCart extends React.Component {
                                             {item.selectedVariants && Object.entries(item.selectedVariants).map(([attributeId, selectedVariant]) => {
                                                 const attribute = item.attributes.find(attr => attr.id === attributeId);
                                                 return (
-                                                    <div key={attributeId} className="selected-variant">
+                                                    <div key={attributeId} className="selected-variant" data-testid={`cart-item-attribute-${attribute.name.replace(/\s+/g, '-').toLowerCase()}`}>
                                                         <span className="variant-name">{attribute.name}:</span>
                                                         <div className="attribute-tiles">
                                                             {attribute.items.map(attrItem => {
                                                                 const isSelected = attrItem.value === selectedVariant;
                                                                 const isColorAttribute = attribute.name === 'Color';
-                                                                return (
+                                                                const dataTestId = `product-attribute-color-${attrItem.value.replace(/\s+/g, '-')}`; 
+                                                                return isColorAttribute ? (
+                                                                    <div 
+                                                                        key={attrItem.id} 
+                                                                        className={`color-tile ${isSelected ? 'selected' : ''}`} 
+                                                                        style={{ backgroundColor: attrItem.value }} 
+                                                                        data-testid={dataTestId} 
+                                                                    >
+                                                                        {isSelected && <span className="selected-color-name">{attrItem.displayValue}</span>} {}
+                                                                    </div>
+                                                                ) : (
                                                                     <button
                                                                         key={attrItem.id}
                                                                         className={`attribute-button ${isSelected ? 'selected' : ''}`}
-                                                                        style={isColorAttribute ? { backgroundColor: attrItem.value, width: '30px', height: '30px', pointerEvents: 'none' } : {}}
+                                                                        data-testid={`product-attribute-${attribute.name.replace(/\s+/g, '-').toLowerCase()}-${attrItem.value.replace(/\s+/g, '-').toLowerCase()}`} 
                                                                     >
-                                                                        {!isColorAttribute && attrItem.displayValue}
+                                                                        {attrItem.displayValue}
                                                                     </button>
                                                                 );
                                                             })}
                                                         </div>
+                                                        <hr className="attribute-separator" />
                                                     </div>
                                                 );
                                             })}
@@ -159,13 +173,15 @@ class NewCart extends React.Component {
                                                 <button 
                                                     className="quantity-button" 
                                                     onClick={() => this.handleDecreaseQuantity(item)} 
+                                                    data-testid="cart-item-amount-decrease" 
                                                 >
                                                     -
                                                 </button>
-                                                <span className="quantity-display">{item.quantity}</span>
+                                                <span className="quantity-display" data-testid="cart-item-amount">{item.quantity}</span>
                                                 <button 
                                                     className="quantity-button" 
                                                     onClick={() => this.handleIncreaseQuantity(item)} 
+                                                    data-testid="cart-item-amount-increase" 
                                                 >
                                                     +
                                                 </button>
@@ -181,15 +197,17 @@ class NewCart extends React.Component {
                                 </div>
                             ))
                         )}
-                        <h3>Total: ${Math.max(total, 0).toFixed(2)}</h3>
+                        <h3 data-testid="cart-total">Total: ${Math.max(total, 0).toFixed(2)}</h3>
                     </div>
-                    <button 
-                        className="place-order-button" 
-                        onClick={this.placeOrder} 
-                        disabled={cartItems.length === 0} // Disable if the cart is empty
-                    >
-                        Place Order
-                    </button>
+                    <div className="cart-footer">
+                        <button 
+                            className="place-order-button" 
+                            onClick={this.placeOrder} 
+                            disabled={isPlacingOrder || cartItems.length === 0} 
+                        >
+                            {isPlacingOrder ? 'Placing Order...' : 'Place Order'}
+                        </button>
+                    </div>
                 </div>
             </>
         );

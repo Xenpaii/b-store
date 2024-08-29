@@ -1,15 +1,15 @@
-// src/components/Navbar.js
 import React from 'react';
+import { Link } from 'react-router-dom'; 
 import './CategoryBar.css'; 
-import CategoryBar from './CategoryBar'; // Import CategoryBar
-import logo from '../images/website logo.png'; // Import your logo image
+import CategoryBar from './CategoryBar'; 
+import logo from '../images/website logo.png'; 
 
 class Navbar extends React.Component {
   render() {
     const { toggleCart, cartCount, selectedCategory, onSelectCategory } = this.props; 
 
     return (
-      <nav className={`navbar ${this.props.theme}`}> {/* Use theme prop to set class */}
+      <nav className="navbar"> 
         <div className="navbar-content">
           <div className="category-bar">
             <CategoryBar 
@@ -17,10 +17,12 @@ class Navbar extends React.Component {
               onSelectCategory={onSelectCategory} 
             />
           </div>
-          <img src={logo} alt="Logo" className="navbar-logo" /> {/* Add logo image */}
+          <Link to="/" className="navbar-logo"> 
+            <img src={logo} alt="Logo" className="navbar-logo" />
+          </Link>
           <div className="cart-button" data-testid="cart-btn" onClick={toggleCart}>
-            <span className="cart-icon" role="img" aria-label="cart">🛒</span> {/* Cart emoji */}
-            {cartCount > 0 && <span className="cart-badge">{cartCount}</span>} {/* Badge for cart count */}
+            <span className="cart-icon" role="img" aria-label="cart">🛒</span> 
+            {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
           </div>
         </div>
       </nav>

@@ -1,11 +1,11 @@
-/* src/components/NewCart.css */
+
 
 .new-cart {
     position: fixed;
     right: 0;
-    top: 0;
+    top: 70px;
     width: 300px;
-    height: 100%;
+    height: calc(100% - 70px);
     background-color: white;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
     transform: translateX(100%);
@@ -18,21 +18,27 @@
 }
 
 .overlay {
-    position: fixed; /* Cover the entire viewport */
-    top: 0;
+    position: fixed;
+    top: 60px;
     left: 0;
     width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
-    z-index: 999; /* Ensure it is above other content but below the cart */
-    opacity: 0; /* Start with opacity 0 */
-    transition: opacity 0.3s ease; /* Smooth transition for opacity */
+    height: calc(100% - 60px);
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.overlay.visible {
+    pointer-events: auto;
+    opacity: 1;
 }
 
 .cart-content {
     padding: 20px;
-    overflow-y: auto; /* Allow scrolling if content overflows */
-    height: 100%; /* Full height for scrolling */
+    overflow-y: auto;
+    height: calc(100% - 100px);
 }
 
 .close-button {
@@ -44,20 +50,20 @@
 
 .cart-item {
     display: flex;
-    flex-direction: column; /* Change to column layout */
-    align-items: center; /* Center items */
+    flex-direction: column;
+    align-items: center;
     margin-bottom: 15px;
 }
 
 .cart-item-image {
-    width: 100%; /* Make the image take full width */
-    height: auto; /* Maintain aspect ratio */
-    margin-bottom: 10px; /* Space between image and details */
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
 }
 
 .item-details {
-    width: 100%; /* Make the details take full width */
-    text-align: center; /* Center text inside the details */
+    width: 100%;
+    text-align: center;
 }
 
 .item-name {
@@ -65,131 +71,157 @@
 }
 
 .item-price {
-    margin: 5px 0; /* Space between price and quantity controls */
+    margin: 5px 0;
 }
 
 .quantity-controls {
     display: flex;
     align-items: center;
-    margin-top: 5px; /* Space above the quantity controls */
+    margin-top: 5px;
 }
 
 .quantity-container {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Align items to the left, center, and right */
-    background-color: #5ece7b; /* Green accent color */
-    border-radius: 4px; /* Rounded corners for the container */
-    width: 100%; /* Make the container take full width */
+    justify-content: space-between;
+    background-color: #5ece7b;
+    border-radius: 4px;
+    width: 100%;
 }
 
 .quantity-button {
-    background-color: transparent; /* Transparent background */
+    background-color: transparent;
     color: white;
     border: none;
-    padding: 10px; /* Padding for buttons */
+    padding: 10px;
     cursor: pointer;
-    transition: background-color 0.3s; /* Smooth background color transition */
+    transition: background-color 0.3s;
 }
 
 .quantity-button:hover {
-    background-color: rgba(255, 255, 255, 0.2); /* Lighten on hover */
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .quantity-display {
     color: white;
-    padding: 5px 10px; /* Padding for the number */
-    font-size: 16px; /* Font size for the number */
-    font-weight: bold; /* Make the number bold */
+    padding: 5px 10px;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 .remove-button {
-    background-color: #7d8e97; /* Gray color */
+    background-color: #7d8e97;
     color: white;
     border: none;
-    padding: 10px; /* Padding for the remove button */
+    padding: 10px;
     cursor: pointer;
-    border-radius: 4px; /* Rounded corners for the remove button */
-    width: 100%; /* Make the remove button take full width */
-    margin-top: 10px; /* Space above the remove button */
+    border-radius: 4px;
+    width: 100%;
+    margin-top: 10px;
 }
 
 .selected-variants {
-    margin-top: 10px; /* Space above the selected variants */
+    margin-top: 10px;
 }
 
 .selected-variant {
     display: flex;
-    align-items: center;
-    margin-bottom: 5px; /* Space between each variant display */
+    flex-direction: column;
+    margin-bottom: 10px;
+    width: 100%;
 }
 
 .variant-name {
-    font-weight: bold; /* Bold for attribute name */
-    margin-right: 5px; /* Space between name and value */
+    font-weight: bold;
+    margin-bottom: 5px;
 }
 
 .attribute-tiles {
     display: flex;
-    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
 }
 
-.color-tile {
-    width: 30px; /* Fixed width for color tiles */
-    height: 30px; /* Fixed height for color tiles */
-    border-radius: 5px; /* Rounded corners for color tiles */
-    display: inline-flex; /* Ensure it behaves like a block element */
-    justify-content: center; /* Center content horizontally */
-    align-items: center; /* Center content vertically */
-    cursor: pointer; /* Pointer cursor on hover */
-    position: relative; /* Position for the outer border */
+.attribute-button {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    flex: 0 1 auto;
 }
 
-.color-tile::before {
-    content: ''; /* Create a pseudo-element for the outer border */
-    position: absolute; /* Position it absolutely */
-    top: -2px; /* Adjust position */
-    left: -2px; /* Adjust position */
-    right: -2px; /* Adjust position */
-    bottom: -2px; /* Adjust position */
-    border: 2px solid transparent; /* Default transparent outer border */
-    border-radius: 7px; /* Slightly larger rounded corners */
-    transition: border-color 0.3s; /* Smooth transition for border color */
+.attribute-separator {
+    border: none;
+    height: 1px;
+    background-color: #ccc;
+    margin: 10px 0;
+    width: 100%;
 }
 
-.color-tile.selected::before {
-    border-color: #5ECE7B; /* Green outer border for selected color */
+.selected {
+    background-color: #007bff;
 }
 
-.color-tile .inner-border {
-    border: 2px solid white; /* White inner border */
-    border-radius: 3px; /* Rounded corners for inner border */
-    width: 100%; /* Full width for inner border */
-    height: 100%; /* Full height for inner border */
+.cart-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 93%;
+    height: 5.5%;
+    background-color: white;
+    padding: 10px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
 }
-
-/* src/components/NewCart.css */
 
 .place-order-button {
-    position: fixed; /* Fixed position to keep it always visible */
-    bottom: 20px; /* Space from the bottom */
-    right: 20px; /* Space from the right */
-    background-color: #5ece7b; /* Green background */
-    color: white; /* White text color */
-    border: none; /* Remove border */
-    padding: 15px 20px; /* Padding for the button */
-    border-radius: 5px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s; /* Smooth transition for background color */
-    z-index: 1001; /* Ensure it is above the cart */
+    width: 100%;
+    background-color: #5ece7b;
+    color: white;
+    border: none;
+    padding: 15px 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .place-order-button:hover:not(:disabled) {
-    background-color: #4cbf6e; /* Darker green on hover */
+    background-color: #4cbf6e;
 }
 
 .place-order-button:disabled {
-    background-color: #ccc; /* Grey background for disabled state */
-    color: #666; /* Grey text for disabled state */
-    cursor: not-allowed; /* Change cursor to indicate it's not clickable */
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}
+
+.color-tile {
+    border: 2px solid #949494;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    position: relative;
+    margin: 2px;
+}
+
+.color-tile.selected {
+    border: 2px solid #009b46;
+}
+
+.selected-color-name {
+    position: absolute;
+    color: white;
+    font-size: 8px;
+    text-align: center;
+    pointer-events: none;
+    -webkit-text-stroke: 0.3px black;
+    text-stroke: 0.5px black;
 }

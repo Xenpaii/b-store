@@ -1,30 +1,28 @@
-// src/components/CategoryBar.js
+
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { Link } from 'react-router-dom'; 
 import './CategoryBar.css'; 
 
-const categories = ['all', 'tech', 'clothes']; // Original categories
+const categories = ['all', 'tech', 'clothes']; 
 
 const CategoryBar = ({ selectedCategory, onSelectCategory }) => {
-  const navigate = useNavigate(); // Initialize useNavigate
-
   const handleCategorySelect = (category) => {
-    onSelectCategory(category); // Update the selected category
-    navigate('/'); // Redirect to the ProductList (home page)
+    onSelectCategory(category); 
   };
 
   return (
     <div className="category-bar" role="navigation" aria-label="Product categories">
       {categories.map(category => (
-        <button
+        <Link
           key={category}
-          data-testid={selectedCategory === category ? 'active-category-link' : 'category-link'} // Set data-testid
+          to={`/${category}`} 
+          data-testid={selectedCategory === category ? 'active-category-link' : 'category-link'} 
           className={`category-link ${selectedCategory === category ? 'active' : ''}`}
-          onClick={() => handleCategorySelect(category)} // Use the new handler
-          aria-pressed={selectedCategory === category} // Accessibility improvement
+          onClick={() => handleCategorySelect(category)} 
+          aria-pressed={selectedCategory === category} 
         >
-          {category.charAt(0).toUpperCase() + category.slice(1)} {/* Capitalize the first letter */}
-        </button>
+          {category.charAt(0).toUpperCase() + category.slice(1)} {}
+        </Link>
       ))}
     </div>
   );
