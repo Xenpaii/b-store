@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './ProductPage.css'; 
@@ -38,7 +37,7 @@ const ProductPage = ({ addToCart }) => {
                 }
             }
         `;
-
+    
         try {
             const response = await fetch(process.env.REACT_APP_API_URL, {
                 method: 'POST',
@@ -47,16 +46,24 @@ const ProductPage = ({ addToCart }) => {
                 },
                 body: JSON.stringify({ query }),
             });
-
+    
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                const errorText = await response.text(); // Read the response text
+                console.error('API response error:', errorText); // Log the error response
+                throw new Error(`Network response was not ok: ${response.status} ${response.statusText}`);
             }
-
-            const data = await response.json();
+    
+            const text = await response.text(); // Read the response as text
+            console.log('Raw response:', text); // Log the raw response for debugging
+    
+            // Parse the JSON after logging
+            const data = JSON.parse(text);
+    
             if (data.errors) {
+                console.error('GraphQL errors:', data.errors);
                 throw new Error('GraphQL error: ' + JSON.stringify(data.errors));
             }
-
+    
             const foundProduct = data.data.products.find(p => p.id === productId);
             if (foundProduct) {
                 setProduct(foundProduct);
@@ -66,6 +73,7 @@ const ProductPage = ({ addToCart }) => {
             }
             setLoading(false);
         } catch (error) {
+            console.error('Error fetching products:', error);
             setError(error.message);
             setLoading(false);
         }
@@ -159,7 +167,7 @@ const ProductPage = ({ addToCart }) => {
                             </div>
                         </div>
                     ))}
-                    <div style={{ margin: '20px 0' }} /> {}
+                    <div style={{ margin: '20px 0' }} />
                     <button 
                         className={`add-to-cart-button ${!allAttributesSelected() ? 'disabled' : ''}`}
                         onClick={handleAddToCart} 
@@ -168,7 +176,7 @@ const ProductPage = ({ addToCart }) => {
                     >
                         Add to Cart
                     </button>
-                    <div className="product-description" data-testid="product-description"> {}
+                    <div className="product-description" data-testid="product-description">
                         {product.description.split('\n').map((paragraph, index) => (
                             <p key={index}>{paragraph}</p>
                         ))}
