@@ -34,24 +34,24 @@ class NewCart extends React.Component {
 
     placeOrder = async () => {
         const { cartItems, total } = this.props;
-
+    
         if (cartItems.length === 0) return; // Prevent placing an order if the cart is empty
-
+    
         // Prepare items data including attributes
         const items = cartItems.map(item => {
             const itemName = item.name; // Assuming item has a name property
             const itemAttributes = item.selectedVariants; // Assuming selectedVariants contains the attributes
-
+    
             // Create a structured object for the order
             const itemEntry = { name: itemName };
-
+    
             for (const [key, value] of Object.entries(itemAttributes)) {
                 itemEntry[key] = value; // Add attribute to the item entry
             }
-
+    
             return JSON.stringify(itemEntry); // Convert each item entry to JSON string
         });
-
+    
         const query = `
             mutation PlaceOrder($items: [String!]!, $total: Float!) {
                 placeOrder(items: $items, total: $total) {
@@ -62,12 +62,12 @@ class NewCart extends React.Component {
                 }
             }
         `;
-
+    
         const variables = {
             items: items,
             total: total,
         };
-
+    
         try {
             const response = await fetch(process.env.REACT_APP_API_URL, {
                 method: 'POST',
@@ -76,20 +76,24 @@ class NewCart extends React.Component {
                 },
                 body: JSON.stringify({ query, variables }),
             });
-
-            const data = await response.json(); // Get the response data
-
-            // Log the response for debugging
-            console.log('GraphQL response:', data);
-
+    
+            // Log the raw response text for debugging
+            const responseText = await response.text(); // Get the raw response text
+            console.log('Raw response:', responseText); // Log the raw response
+    
+            // Check if the response is OK (status code 200-299)
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                throw new Error(`Network response was not ok: ${response.status} ${response.statusText}`);
             }
-
+    
+            // Parse the response text as JSON
+            const data = JSON.parse(responseText);
+    
+            // Check for GraphQL errors in the response
             if (data.errors) {
                 throw new Error('GraphQL error: ' + JSON.stringify(data.errors));
             }
-
+    
             // Clear the cart after placing the order
             this.props.cartItems.forEach(item => this.props.removeFromCart(item));
             alert('Order placed successfully!'); // Notify the user
